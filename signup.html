@@ -1,0 +1,88 @@
+<html?>
+
+  <head>
+
+  <style type="text/css">
+       body{
+              background-color:pink;
+       }
+
+       td{
+              background-color:grey;
+       }
+
+       table{
+              margin-left:100px;
+              margin-top:300px;
+       }
+       </style>
+</head>
+       </html>
+
+<?php
+
+
+
+$a=$_POST['fullname'];
+$b=$_POST['username'];
+$d=$_POST['phoneno'];
+$e=$_POST['password'];
+
+
+
+$con=mysqli_connect("localhost","root","","ecom1")
+ or die("Connection failed");
+
+$sql="insert into register values('$a','$b','$d','$e')";
+
+       mysqli_query($con,$sql) or die("insert failed");
+     //header('http://localhost/project2/register.html');
+
+       $sql="select* from register";
+       $rs=mysqli_query($con,$sql) or die("sql failed");
+
+
+
+echo "<table border=1 cellspacing=0 cellpadding=50 bgcolor=#ADD8E6>";
+
+echo "<tr>";
+echo "<th> Fullname</th>";
+
+echo "<th> Username </th>";
+
+
+echo "<th> PhoneNo </th>";
+
+echo "<th> Password </th>";
+
+
+echo "<th> Terms </th>";
+echo "</tr>";
+
+
+echo "<tr>";
+echo "<td>";
+echo $a;
+echo "</td>";
+
+echo "<td>";
+echo $b;
+echo "</td>";
+
+
+echo "<td>";
+echo $d;
+echo "</td>";
+
+echo "<td>";
+echo $e;
+echo "</td>";
+
+
+echo "</tr>";
+
+echo "</table>";
+
+
+
+       ?>

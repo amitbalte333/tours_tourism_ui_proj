@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Now Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: hsl(191, 25%, 74%);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .form-container {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        padding: 40px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"]
+    input[type="age"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #ff6f61;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.5ms;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #9480a6;
+    }
+    
+</style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Book Now</h2>
+    <form id="book-now-form" action="#" method="post">
+        <input type="text" name="fullname" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" placeholder="Phone Number" required>
+        <input type="age" name="age" placeholder="age" required>
+
+        <input type="date" name="arrival-date" placeholder="Arrival Date" required>
+        <textarea name="message" rows="4" placeholder="Additional Message"></textarea>
+        <input type="submit" value="Book Now">
+    </form>
+</div>
+
+</body>
+</html>

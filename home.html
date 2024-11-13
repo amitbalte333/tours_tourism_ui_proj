@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourist Website</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .destination {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .destination-item {
+            width: 30%;
+            margin-bottom: 30px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .destination-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .destination-item img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s;
+        }
+        .destination-item:hover img {
+            transform: scale(1.1);
+        }
+        .destination-item .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .destination-item:hover .overlay {
+            opacity: 1;
+        }
+        .destination-item .overlay h3 {
+            color: #fff;
+            font-size: 24px;
+            text-align: center;
+            margin: 0;
+        } 
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Welcome to Our Tourist Website</h1>
+    <div class="destination">
+        <div class="destination-item">
+            <img src="./images/destination-1.jpg" alt="Destination 1">
+            <div class="overlay">
+                <h3>kerla</h3>
+            </div>
+        </div>
+
+        <div class="destination-item">
+            <img src="https://www.holidify.com/images/bgImages/LADAKH.jpg" alt="Destination 2">
+            <div class="overlay">
+                <h3>Leh Ladakh
+                </h3>
+            </div>
+        </div>
+        <div class="destination-item">
+            <img src="https://www.holidify.com/images/bgImages/GANGTOK.jpg" alt="Destination 3">
+            <div class="overlay">
+                <h3>Gangtok, Sikkim
+                </h3>
+            </div>
+        </div>
+        <div class="destination">
+            <div class="destination-item">
+                <img src="https://www.holidify.com/images/bgImages/SRINAGAR.jpg" alt="Destination 1">
+                <div class="overlay">
+                    <h3>Srinagar, Jammu & Kashmir
+                    </h3>
+                </div>
+        <!-- Add more destination items as needed -->
+    </div>
+</div>
+
+</body>
+</html>

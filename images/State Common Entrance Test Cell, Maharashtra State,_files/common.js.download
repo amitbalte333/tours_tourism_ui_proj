@@ -1,0 +1,2066 @@
+function redirect( loc )
+{
+    location.href = loc;
+}
+
+/******************************************************************************************************************
+*
+* Functions in Java Scrpt
+*
+********************************************************************************************************************/
+var whitespace =" \t\n\r ";
+function isEmpty(str)
+{
+return ((str == null) || (str.length == 0))
+}
+
+function isEmptySelect(str)
+{
+return ((str == null) || (str.length == 0))
+}
+/***************************************************************************************************************
+*
+* isWhitespace is using the if Field Empty
+*
+****************************************************************************************************************/
+function isWhitespace(str)
+{ var i;
+var flag
+if (isEmpty(str)) return true;
+for (i = 0; i < str.length; i++)
+{
+// Check that current character isn't whitespace.
+var c = str.charAt(i);
+if (whitespace.indexOf(c) == -1)
+return false
+}
+// All characters are whitespace.
+return true;
+alert("Please Enter Username");
+}
+/**************************************Validate Radio Button ***********************************************************/
+function valRadioButton(btn) {
+var cnt = -1;
+for (var i=btn.length-1; i > -1; i--) {
+if (btn[i].checked) {cnt = i; i = -1;}
+}
+if (cnt > -1) return btn[cnt].value;
+else return null;
+}
+/*************************************************************************************************************
+*
+* isAllCharacters Only it takes Chatacters
+*
+**************************************************************************************************************/
+function isValidIPAddress(ipaddr) {
+var re = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
+if (re.test(ipaddr)) {
+var parts = ipaddr.split(".");
+if (parseInt(parseFloat(parts[0])) == 0) { return false; }
+for (var i=0; i<parts.length; i++) {
+if (parseInt(parseFloat(parts[i])) > 255) { return false; }
+}
+return true;
+} else {
+return false;
+}
+}
+function isAllCharacters(objValue)
+{
+var characters="' -abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ."
+var tmp
+var lTag
+lTag = 0
+temp = (objValue.length)
+for (var i=0;i<temp;i++)
+{
+tmp=objValue.substring(i,i+1)
+if (characters.indexOf(tmp)==-1)
+{
+lTag = 1
+}
+}
+if(lTag == 1)
+return false
+else
+return true
+}
+/*************************************************************************************************************
+*
+* isAlphaNumeric is Used Only it takes Chatacters and Numerics
+*
+**************************************************************************************************************/
+function isAlphaNumeric(objValue)
+{
+var characters="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+var tmp
+var lTag
+lTag = 0
+temp = (objValue.length)
+for (var i=0;i<temp;i++)
+{
+tmp=objValue.substring(i,i+1)
+if (characters.indexOf(tmp)==-1)
+{
+lTag = 1
+}
+}
+if(lTag == 1)
+return false
+else
+return true
+}
+/*************************************************************************************************************
+*
+* isValidPassword only it takes valid password
+*
+**************************************************************************************************************/
+function isValidPassword(val)
+{
+strval = val
+if (strval.length < 6 || strval.length > 15)
+{
+return false
+}
+else
+{
+return true;
+}
+}
+/*************************************************************************************************************
+*
+* MatchPasswords is check the password and confirmpassword is match or not
+*
+**************************************************************************************************************/
+function MatchPasswords(val1,val2)
+{
+strval1 = val1
+strval2 = val2
+if (strval1!= strval2)
+{
+return false
+}
+else
+{
+return true;
+}
+}
+/*************************************************************************************************************
+*
+* isAllNumerics only it takes Numeric values
+*
+**************************************************************************************************************/
+function isAllNumerics(objValue)
+{
+var characters="0123456789."
+var tmp
+var lTag
+lTag = 0
+temp = (objValue.length)
+//alert(objValue);
+for (var i=0;i<temp;i++)
+{
+tmp=objValue.substring(i,i+1)
+if (characters.indexOf(tmp)==-1)
+{
+lTag = 1
+}
+}
+if(lTag == 1)
+return false
+else
+if(objValue<0)
+{
+return false
+}else{
+return true
+}
+}
+/***********************************************************************************************************/
+function isnumerics(objValue)
+{
+var characters="0123456789"
+var tmp
+var lTag
+lTag = 0
+temp = (objValue.length)
+//alert(objValue);
+for (var i=0;i<temp;i++)
+{
+tmp=objValue.substring(i,i+1)
+if (characters.indexOf(tmp)==-1)
+{
+lTag = 1
+}
+}
+if(lTag == 1)
+return false
+else
+if(objValue<0)
+{
+return false
+}else{
+return true
+}
+}
+
+function confirm_box(){
+    if(confirm("Click OK if you are sure that information filled by you is correct")){
+        return true;
+    }
+        else 
+        return false;
+     }
+
+
+/*************************************************************************************************************
+*
+* isValidEmail it checks the Email-Id is Valid or Not
+*
+**************************************************************************************************************/
+function isValidEmail(emailStr)
+{
+/* The following pattern is used to check if the entered e-mail address
+fits the user@domain format. It also is used to separate the username
+from the domain. */
+var emailPat=/^(.+)@(.+)$/
+/* The following string represents the pattern for matching all special
+characters. We don't want to allow special characters in the address.
+These characters include ( ) < > @ , ; : \ " . [ ] */
+//var specialChars="\\(\\)<>@,;:\\\\\\\"\\.\\[\\]"
+var specialChars="\\(\\)<>@,`';:~!#$%^&*+=|{}?\\\\\\\"\\.\\[\\]"
+/* The following string represents the range of characters allowed in a
+username or domainname. It really states which chars aren't allowed. */
+var validChars="\[^\\s" + specialChars + "\]"
+/* The following pattern applies if the "user" is a quoted string (in
+which case, there are no rules about which characters are allowed
+and which aren't; anything goes). E.g. "sg cricket"@disney.com
+is a legal e-mail address. */
+var quotedUser="(\"[^\"]*\")"
+/* The following pattern applies for domains that are IP addresses,
+rather than symbolic names. E.g. sg@[123.124.233.4] is a legal
+e-mail address. NOTE: The square brackets are required. */
+var ipDomainPat=/^\[(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\]$/
+/* The following string represents an atom (basically a series of
+non-special characters.) */
+var atom=validChars + '+'
+/* The following string represents one word in the typical username.
+For example, in sg.sg@somewhere.com, sg and sg are words.
+Basically, a word is either an atom or quoted string. */
+var word="(" + atom + "|" + quotedUser + ")"
+// The following pattern describes the structure of the user
+var userPat=new RegExp("^" + word + "(\\." + word + ")*$")
+/* The following pattern describes the structure of a normal symbolic
+domain, as opposed to ipDomainPat, shown above. */
+var domainPat=new RegExp("^" + atom + "(\\." + atom +")*$")
+/* Finally, let's start trying to figure out if the supplied address is
+valid. */
+/* Begin with the coarse pattern to simply break up user@domain into
+different pieces that are easy to analyze. */
+var matchArray=emailStr.match(emailPat)
+if (matchArray==null) {
+/* Too many/few @'s or something; basically, this address doesn't
+even fit the general mould of a valid e-mail address. */
+//alert("Email address seems incorrect (check @ and .'s)")
+return false
+}
+var user=matchArray[1]
+var domain=matchArray[2]
+// See if "user" is valid
+if (user.match(userPat)==null) {
+// user is not valid
+//alert("The username doesn't seem to be valid.")
+return false
+}
+/* if the e-mail address is at an IP address (as opposed to a symbolic
+host name) make sure the IP address is valid. */
+var IPArray=domain.match(ipDomainPat)
+if (IPArray!=null) {
+// this is an IP address
+for (var i=1;i<=4;i++) {
+if (IPArray[i]>255) {
+//alert("Destination IP address is invalid!")
+return false
+}
+}
+return true
+}
+// Domain is symbolic name
+var domainArray=domain.match(domainPat)
+if (domainArray==null) {
+//alert("The domain name doesn't seem to be valid.")
+return false
+}
+/* domain name seems valid, but now make sure that it ends in a
+three-letter word (like com, edu, gov) or a two-letter word,
+representing country (uk, nl, no), and that there's a hostname preceding
+the domain or country. */
+/* Now we need to break up the domain to get a count of how many atoms
+it consists of. */
+var atomPat=new RegExp(atom,"g")
+var domArr=domain.match(atomPat)
+var len=domArr.length
+if (domArr[domArr.length-1].length<2 ||
+domArr[domArr.length-1].length>3) {
+// the address must end in a two letter or three letter word.
+//alert("The address must end in a three-letter domain, or two letter country.")
+return false
+}
+// Make sure there's a host name preceding the domain.
+if (len<2) {
+var errStr="This address is missing a hostname!"
+//alert(errStr)
+return false
+}
+// If we've gotten this far, everything's valid!
+return true;
+}
+/*************************************************************************************************************
+*
+* confirm_dropdown selects the dropdownlist
+*
+*************************************************************************************************************/
+function confirm_dropdown()
+{
+// Check to see if the dropdown value is is the first choice
+if (the_form.dropdown.selectedIndex == 0)
+{
+// If the first choice is selected display an alert box
+// stating the first choice is not a valid selection
+//alert("Please select DropDown.");
+// Focus on the dropdown menu after OK is clicked from the alert box
+the_form.dropdown.focus();
+return (false);
+}
+// A choice other than the first was selected
+// cotinue processing the form request
+return (true);
+}
+/*************************************************************************************************************
+*
+* checkme selects the Check Boxes
+*
+*************************************************************************************************************/
+function checkme() {
+missinginfo = "";
+if (!document.lgnFrm.chkboxagreement.checked) {
+missinginfo += "\n - You must agree to the terms";
+}
+if (missinginfo != "") {
+missinginfo ="__________________________________\n" +
+"Required information is missing: \n" +
+missinginfo + "\n__________________________________" +
+"\nPlease complete and resubmit.";
+alert(missinginfo);
+return false;
+}
+else {
+return true;
+}
+}
+/*************************************************************************************************************
+*
+* checkbox_checker selects the Check Boxes
+*
+*************************************************************************************************************/
+
+
+
+/*************************************************************************************************************
+*
+* Valid URL function starts
+*
+*************************************************************************************************************/
+
+
+function isValidURL(url){
+        var RegExp = /^(([\w]+:)?\/\/)?(([\d\w]|%[a-fA-f\d]{2,2})+(:([\d\w]|%[a-fA-f\d]{2,2})+)?@)?([\d\w][-\d\w]{0,253}[\d\w]\.)+[\w]{2,4}(:[\d]+)?(\/([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)*(\?(&?([-+#!_~.\d\w]|%[a-fA-f\d]{2,2})=?)*)?(#([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)?$/;
+        if(RegExp.test(url)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+
+/*************************************************************************************************************
+*
+* Valid URL function ends
+*
+*************************************************************************************************************/
+
+
+
+
+
+
+function checkbox_checker()
+{
+// set var checkbox_choices to zero
+var checkbox_choices = 0;
+// Loop from zero to the one minus the number of checkbox button selections
+for (counter = 0; counter < checkbox_form.checkbox.length; counter++)
+{
+// If a checkbox has been selected it will return true
+// (If not it will return false)
+if (checkbox_form.checkbox[counter].checked)
+{ checkbox_choices = checkbox_choices + 1; }
+}
+if (checkbox_choices > 3 )
+{
+// If there were more than three selections made display an alert box
+msg="You're limited to only three selections.\n"
+msg=msg + "You have made " + checkbox_choices + " selections.\n"
+msg=msg + "Please remove " + (checkbox_choices-3) + " selection(s)."
+alert(msg)
+return (false);
+}
+if (checkbox_choices < 3 )
+{
+// If there were less then selections made display an alert box
+alert("Please make three selections. \n" + checkbox_choices + " entered so far.")
+return (false);
+}
+// If three were selected then display an alert box stating input was OK
+alert(" *** Valid input of three outfielders was entered. ***");
+return (true);
+}
+/*************************************************************************************************************
+*
+* Radio Button in Java Script
+*
+**************************************************************************************************************/
+function radio()
+{
+if (document.form.value.checked==true)
+{
+alert("Select One ");
+}
+}
+/*************************************************************************************************************
+*
+* confirmation Button in Java Script
+*
+**************************************************************************************************************/
+function confirmation() {
+var answer = confirm("Are you Sure want to Delete?")
+if (answer){
+alert("Bye!")
+window.location = "http://www.google.com/";
+}
+else{
+alert("Thanks for sticking around!")
+}
+}
+//submitting the form through button
+function Submitform(frm,scriptName,strPage)
+{
+frm.method="POST";
+frm.action= scriptName+".php?mode="+strPage;
+frm.submit();
+}
+function Submitqstrform(frm,scriptName,qstr)
+{
+frm.method="POST";
+//alert(scriptName+".php?"+qstr);
+frm.action= scriptName+".php?"+qstr;
+frm.submit();
+}
+function DropDownSelect(obj, val)
+{
+var i;
+var len = obj.options.length;
+for (i=0; i<len; i++) {
+if (obj.options[i].value == val) {
+obj.selectedIndex = i;
+break;
+}
+}
+}
+function checkAgree() // Check if user is agree for service agreement terms
+{
+if(document.lgnFrm.chkboxagreement.status==false)
+{
+alert("Please check the Service agreement Terms");
+return false;
+}
+return true;
+}
+function chkExpDate(checkExpDate) // function for checking expiration date mm/yyyy
+{
+now = new Date();
+datePart1=checkExpDate.split(' ');
+alert(datePart1)
+alert(datePart1)
+if(datePart1[0].indexOf("-")>0) // Process : To Check Date Is Separated by . or / or - characters only
+var sp_char="-";
+else if (datePart1[0].indexOf("/")>0)
+var sp_char="/";
+else if (datePart1[0].indexOf(".")>0)
+var sp_char=".";
+else
+{
+alert("Please Enter Date in Specified format");
+return false;
+}
+datePart = datePart1[0].split(sp_char);
+var year = now.getFullYear(); //Returns four digit year after 1999 in netscape otherwise returns (current year-1900)
+var month = now.getMonth();
+if(month<10) month="0"+month;
+var todaysdate = month+"-"+year;
+var userdate = datePart[0]+"-"+datePart[1];
+if(datePart[0]=="08")
+datePart[0]="8";
+if(datePart[0]=="09")
+datePart[0]="9";
+//else
+//{
+if(datePart.length==2)
+{
+if(!(Number(datePart[0])) || !(Number(datePart[1]))) //Process : Whether Date Entered Has Numeric Entries
+{
+alert("Please Enter Numbers Only");
+return;
+}
+if(datePart[0].length!=2 || datePart[1].length!=4)
+{
+alert("Please enter date in 'mm/yyyy' format. e.g. 02/2006 or 07/2015");
+return false;
+}
+}
+else
+{
+alert("Please Enter Date in Specified format");
+return false;
+}
+if( (Number(year)) > (Number(datePart[1])))
+{
+alert("Please enter Future date only");
+return false;
+}
+if( (Number(year)) == (Number(datePart[1])))
+{
+if( (Number(month)) > (Number(datePart[0])) )
+{
+alert("Please enter Future date only");
+return false;
+}
+}
+if( (parseInt(datePart[1])<2101) && (parseInt(datePart[1])>year-1) && (parseInt(datePart[0])<13) && (parseInt(datePart[0])>0)) //Process : Range Of Date Values
+{
+return true;
+}
+else
+{
+alert('Invalid Month OR Year value !');
+return false;
+}
+//}
+return true;
+}
+function isValidDate(checkDate) // Check for valid date
+{
+var datePart,datePart1,result,flag;
+now = new Date();
+var year = now.getYear();
+var month = now.getMonth();
+if(month<10) month="0"+month;
+var nowdate = now.getDate();
+if(nowdate<10) nowdate="0"+nowdate;
+var todaysdate = year+"-"+month+"-"+nowdate;
+if(checkDate!="") // Process : Check Date Field Is Not Blank
+{
+datePart1=checkDate.split(' ');
+if(datePart1[0].indexOf("-")>0) // Process : To Check Date Is Separated by . or / or - characters only
+var sp_char="-";
+else if (datePart1[0].indexOf("/")>0)
+var sp_char="/";
+else if (datePart1[0].indexOf(".")>0)
+var sp_char=".";
+else
+{
+alert("Please Enter Date in Specified format");
+return false;
+}
+datePart=datePart1[0].split(sp_char);
+var userdate = datePart[0]+"-"+datePart[1]+"-"+datePart[2];
+if(todaysdate>=userdate)
+{
+alert("Please enter Future date only");
+return false;
+}
+else
+{
+if(datePart.length==3)
+{
+if(datePart[1].length==1)
+{
+alert("Please enter month in 'mm' format. e.g. 02 or 07");
+return false;
+}
+if(datePart[2].length==1)
+{
+alert("Please enter date in 'dd' format. e.g. 02 or 07");
+return false;
+}
+}
+else
+{
+alert("Please Enter Date in Specified format");
+return false;
+}
+if(datePart[1]=="08")
+datePart[1]="8";
+if(datePart[1]=="09")
+datePart[1]="9";
+if(datePart[2]=="08")
+datePart[2]="8";
+if(datePart[2]=="09")
+datePart[2]="9";
+if((Number(datePart[0])) && (Number(datePart[1])) && (Number(datePart[2]))) //Process : Whether Date Entered Has Numeric Entries
+{
+if( (parseInt(datePart[0])<2101) && (parseInt(datePart[0])>year-1) && (parseInt(datePart[1])<13) && (parseInt(datePart[1])>0) && (parseInt(datePart[2])<32) && (parseInt(datePart[2])>0) ) //Process : Range Of Date Values
+{
+if(parseInt(datePart[1])==2) // Process : Check For February Month
+{
+if(parseInt(datePart[2]) > 28)
+{
+if((parseInt(datePart[0]) % 4 !=0)) //Leap Year Checking
+{
+alert("Year "+parseInt(datePart[0]) +" : February 28 Days Only!");
+return false;
+}
+else if(parseInt(datePart[2]) == 29)
+{
+var subdatePart=datePart[0];
+subdatePart = subdatePart.substring(2);
+if(subdatePart=="00") //check for centuary years not divisible by 400
+{
+if((parseInt(datePart[0]) % 400 !=0))
+{
+alert("No Leap Year "+parseInt(datePart[0]) +" : February 28 Days Only!");
+return false;
+}
+else
+return true;
+}
+else
+return true;
+alert("Leap Year "+parseInt(datePart[0]) +" : February 29 Days Only!");
+return false;
+}
+else if(parseInt(datePart[2]) > 29)
+{
+alert("February Month Cannot Have more than 29 days !");
+return false;
+}
+}
+else
+return true;
+} //End Of February Check
+else if((parseInt(datePart[1])==4 || parseInt(datePart[1])==6 || parseInt(datePart[1])==9 || parseInt(datePart[1])==11 ) && datePart[2] > 30)// || parseInt(datePart[1])==6 || parseInt(datePart[1])==9 || parseInt(datePart[1])==11)) //Check For Apr,Jun,Sep,Nov.
+{
+alert("This Month Has 30 Days");
+return false;
+}
+else
+return true;
+}
+else
+{
+alert('Invalid Year OR Month OR Day value !');
+return false;
+}
+}
+else //Execute : When Date Field Is With Irrelavent Data [Like Char,special Char etc other than numbers ]
+{
+alert('Please Enter date in specified format');
+return false;
+}
+return true;
+}
+}
+else // Execute : When Date Field Is Blank
+{
+alert('Date field cannot be left blank');
+return false;
+}
+return true;
+}
+//function for generating the age
+function ageGenerate(inpDate)
+{
+// PROCESSING DATE
+var birthDate=inpDate;
+var strDate = birthDate.split("/");
+var intYear,intMonth,intDate;
+intYear=parseInt(strDate[2]);
+intMonth=parseInt(strDate[1]);
+intDate=parseInt(strDate[0]);
+// TODAYS DATE
+var today=new Date();
+var todayDate,todayMonth,todayYear;
+todayDate=parseInt(today.getDate());
+todayMonth=parseInt(today.getMonth())+1;
+todayYear=parseInt(today.getYear());
+// AGE PARAMETERS
+var ageYears,ageDays;
+// LOGIC
+ageYears=todayYear-intYear;
+if((todayMonth < intMonth)|| ((todayMonth == intMonth) && (todayDate < intDate)))
+{
+ageYears--;
+}
+return ageYears;
+}
+function InvoiteOpen(frmName,mode)
+{
+frmName.method="post";
+var frmNameaction="../invoite.php?mode="+mode;
+window.open(frmNameaction,"myWindow", "status =0, height = 680, width =740,scrollbars=1,menubar=0");
+}
+function validUrl(url) // Link Tracker : To check whether URL is Valid OR Not
+{
+var i;
+var result=1;
+var urlPart;
+var urlCheck=url;
+if(urlCheck.length<5)
+result=2;
+urlPart=urlCheck.split(":");
+if(urlPart[0]=="http" || urlPart[0]=="https")
+{
+urlPart=urlPart[1].split(".");
+if((urlPart[urlPart.length-1].length < 2) || urlPart.length < 2)//|| (urlPart[urlPart.length-2].length < 2)
+result=2;
+else
+result=1;
+}
+else
+{
+result=2;
+}
+if(result==2)
+return false;
+else
+{
+return true;
+}
+}
+function noNumbersNoSpace(e) // Dont allow numbers and spaces
+{
+if(allowCharOnly(e))
+if(isSpace(e))
+return true;
+return false;
+}
+function insertAddress(element1, element2) // Registration : to insert same address from billing to mailing
+{
+if(document.frmReg.chkboxaddress.checked==true)
+{
+document.frmReg.elements[element2].value = document.frmReg.elements[element1].value;
+}
+}
+function isSelected(elementname) // Registration : Check the Drop-down list has been selected or not
+{
+var ind = document.frmReg.elements[elementname].selectedIndex;
+if(document.frmReg.elements[elementname].options[ind].value=="Select")
+return false;
+return true;
+}
+function isSpace(e) //Check for Blank spaces
+{
+if(navigator.appName=="Microsoft Internet Explorer")
+{
+if(e.keyCode==32)
+{
+alert("Cannot enter Blank spaces!");
+return false;
+}
+}
+if(navigator.appName=="Netscape")
+{
+if(e.which==32)
+{
+alert("Cannot enter Blank spaces!");
+return false;
+}
+}
+return true;
+}
+function isBlank(elename) // Registration : Check if field is blank
+{
+//alert(elename);
+if(document.frmReg.elements[elename].value=="")
+return true;
+else
+return false;
+}
+function isSimilar(field1, field2) // Registration : Check if contents of both the fields are same
+{
+if(document.frmReg.elements[field1].value!=document.frmReg.elements[field2].value)
+return false;
+return true;
+}
+function chkLength(strVal,num) //Check the length of string entered
+{
+if(strVal.length < num)
+return 0;
+else
+return 1;
+}
+function chkPwdLength(field) // Registration : Check number of characters of password
+{
+if(navigator.appName=="Microsoft Internet Explorer")
+{
+if(field==1)
+{
+if(document.frmReg.txtpassword1.value.length<6)
+{
+alert("Minimum 6 characters please");
+document.frmReg.txtpassword1.focus();
+return false;
+}
+}
+else if(field==2)
+{
+if(document.frmReg.txtpassword2.value.length<6)
+{
+alert("Minimum 6 characters please");
+return false;
+}
+}
+}
+return true;
+}
+function validEmail() // Registration : Check for valid email address for signup
+{
+if(!chkLength(document.frmReg.txtemail.value,7))
+{
+document.frmReg.txtemail.focus();
+return (false);
+}
+if(!isEmailAddr(document.frmReg.txtemail.value))
+{
+document.frmReg.txtemail.focus();
+return (false);
+}
+return (true);
+}
+function allowCharOnly(e) //Allows only characters to be entered
+{
+if(navigator.appName=="Microsoft Internet Explorer")
+{
+if((e.keyCode >64 && e.keyCode < 91) || (e.keyCode >96 && e.keyCode<123) || e.keyCode==32 || e.keyCode==8 || e.keyCode==0)
+{}
+else
+{
+e.keyCode=" ";
+return false;
+}
+}
+else if(navigator.appName=="Netscape")
+{
+if((e.which >64 && e.which < 91) || (e.which >96 && e.which<123) || e.which==0 || e.which==8 || e.which==32)
+{}
+else
+return false;
+}
+return true;
+}
+function allowDigitDashPlusOnly(e) //Allows only digits, Dash and Plus to be entered at keypress
+{
+if(navigator.appName=="Microsoft Internet Explorer")
+{
+if(e.keyCode >47 && e.keyCode < 58 || e.keyCode==45 || e.keyCode==43)
+{}
+else
+return false;
+}
+else if(navigator.appName=="Netscape")
+{
+if(e.which >47 && e.which < 58 || e.which==45 || e.which==43 || e.which==0 || e.which==8)
+{}
+else
+return false;
+}
+return true;
+}
+function noChars1(elementname) // Registration : Allows only digits, Dash and Plus to be entered at submission
+{
+var chknum = document.frmReg.elements[elementname].value;
+var i=0;
+while(i<chknum.length)
+{
+if((chknum.charCodeAt(i)<47 || chknum.charCodeAt(i)>58) && chknum.charCodeAt(i)!=43 && chknum.charCodeAt(i)!=45 )
+{
+document.frmReg.elements[elementname].focus();
+return false
+}
+i++;
+}
+return true;
+}
+function noChars2(elementname) // Registration : Allows only digits at submission
+{
+var chknum = document.frmReg.elements[elementname].value;
+var i=0;
+while(i<chknum.length)
+{
+if((chknum.charCodeAt(i)<47 || chknum.charCodeAt(i)>58))
+{
+document.frmReg.elements[elementname].focus();
+return false
+}
+i++;
+}
+return true;
+}
+function noNumbers(elementname)// Registration : Allows only digits, Dash, Plus, and space to be entered at submission
+{
+var chkchar = document.frmReg.elements[elementname].value;
+var i=0;
+while(i<chkchar.length)
+{
+if((chkchar.charCodeAt(i)<65 || chkchar.charCodeAt(i)>90) && (chkchar.charCodeAt(i)<97 || chkchar.charCodeAt(i)>122)
+&& chkchar.charCodeAt(i)!=32)
+{
+document.frmReg.elements[elementname].focus();
+return false
+}
+i++;
+}
+return true;
+}
+// BASIC DATA VALIDATION FUNCTIONS:
+// isWhitespace (s) ? sirul s este null sau spatiu
+// isLetter (c) ? caracterul c litera
+// isDigit (c) ? caracterul c numar
+// isLetterOrDigit (c) ? caracterul c litera sau numar.
+// isInteger (s [,eok]) ? s sir de cifre
+// isSignedInteger (s [,eok]) ? s sir de cifre; este permisa folosirea semnelor +\-
+// isPositiveInteger (s [,eok]) ? s numar>0; este permisa folosirea semnelor +\-
+// isNonnegativeInteger (s [,eok]) ? s numar>=0
+// isNegativeInteger (s [,eok]) ? s numar<0
+// isNonpositiveInteger (s [,eok]) ? s numar<=0
+// isFloat (s [,eok]) ? s numar real: unsigned floating point (real)
+// isSignedFloat (s [,eok]) ? s numar real; este permisa folosirea semnelor +\-
+// isAlphabetic (s [,eok]) ? s sir litere
+// isAlphanumeric (s [,eok]) ? s sir din cifre si litere
+// FUNCTIONS TO REFORMAT DATA:
+// stripCharsInBag (s, bag) scoate caracterele din s care sunt in bag
+// stripCharsNotInBag (s, bag) scoate caracterele din s care nu sunt in bag
+// stripWhitespace (s) scoate spatiile din s
+// stripInitialWhitespace (s) scoate spatiile de la inceputul lui s
+// reformat (TARGETSTRING, STRING, insereaza delimitatori in sirul s
+// INTEGER, STRING, INTEGER ... )
+// reformatZIPCode (ZIPString) 9 cifre separator
+// reformatSSN (SSN) ca 123-45-6789.
+// reformatPhone (Phone) ca (123) 456-789.
+// prompt (s)
+// promptEntry (s)
+// warnEmpty (theField, s)
+// warnInvalid (theField, s)
+// validare carte credit
+// isCreditCard (st) adevarat dac s-a trecut testul Luhn Mod-10 test.
+// isVisa (cc)
+// isMasterCard (cc)
+// isAmericanExpress (cc)
+// isDinersClub (cc)
+// isCarteBlanche (cc)
+// isDiscover (cc)
+// isEnRoute (cc)
+// isJCB (cc)
+// isAnyCard (cc) cc este un numar valid pentru cartile de credit acceptate
+// isCardMatch (Type, Number) Number valid pentru cartea de credit Type.
+//////////////////////////////////////////////////////////////////////////////////////////
+// declaratii de variabile
+var MaxInt= 13
+var MaxString = 30;
+var MaxAdress = 200;
+var ContLength = 5
+var PassLength = 5
+var MaxCP = 15
+var digits = "0123456789";
+var lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
+var uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+// spatii albe
+var whitespace = " \t\n\r";
+//delimitator pentru zecimale
+var decimalPointDelimiter = "."
+//car nenumerice permise intr-un nr. de telefon
+var phoneNumberDelimiters = "()- ";
+//car permise intr-un nr. de telefon
+var validPhoneChars = digits + phoneNumberDelimiters;
+//car permise intr-un nr. de telefon international
+var validWorldPhoneChars = digits + phoneNumberDelimiters + "+";
+//car nenumerice permise intr-un nr. SSN
+var SSNDelimiters = "- ";
+//car permise intr-un nr. SSN
+var validSSNChars = digits + SSNDelimiters;
+//un numar SSN are 9 cifre
+var digitsInSocialSecurityNumber = 9;
+// nr. tel
+var digitsInPhoneNumber = 9;
+var digitsInMinPhoneNumber = 5;
+//car nenumerice permise intr-un nr. ZIP Code
+var ZIPCodeDelimiters = "-";
+//car nenumerice folosit ca delimitator intr-un ZIP Code
+var ZIPCodeDelimeter = "-"
+// caractere permise intr-un SSN
+var validZIPCodeChars = digits + ZIPCodeDelimiters
+//ZIP Code 5 sau 9 cifre
+var digitsInZIPCode1 = 5
+var digitsInZIPCode2 = 9
+//car nenumerice permise intr-un nr. de carte de credit
+var creditCardDelimiters = " "
+//MESAJE
+var mPrefix = "Nu ati introdus nimic in campul "
+var mSuffix = ". Este un camp obligatoriu."
+//constante
+var sSubct = "Subcategorie"
+var sPozp = "Pozitie produs"
+var sExpl = "Eplicatie"
+var sUmp = "Unitate de masura"
+var sCuvch = "Cuvinte cheie"
+var sPretm = "Pret maxim"
+var sDenp ="Denumire produs"
+var sCont = "Cont"
+var sFirstPass = "Parola"
+var sSecPass = "Confirmare"
+var sUSLastName = "Nume"
+var sUSFirstName = "Prenume"
+var sWorldLastName = "Nume de familie"
+var sWorldFirstName = "Porecla"
+var sTitle = "Ocupatie"
+var sCompanyName = "Firma"
+var sUSAddress = "Adresa"
+var sWorldAddress = "Adresa"
+var sCity = "Localitate"
+var sStateCode = "Cod"
+var sWorldState = "Judet"
+var sCountry = "Tara"
+var sZIPCode = "Cod"
+var sWorldPostalCode = "Cod"
+var sPhone = "Numar telefon"
+var sFax = "Numar fax"
+var sDateOfBirth = "Data nasterii"
+var sExpirationDate = "Data expirarii"
+var sEmail = "E-mail"
+var sSSN = "SSN"
+var sCreditCardNumber = "Numarul cartii de credit"
+var sOtherInfo = "Alte informatii"
+//MESAJE
+var iIntPozInterval = "Nu este un numar intre 0 si 2147483647"
+var iInt = "Sirul de caractere nu este format doar din cifre "
+var iMaxInt = "Un intreg de tip Integer nu poate depasi 13 caractere "
+var iMaxString = "Nu se pot depasi 30 caractere "
+var iMaxAdress = "Campurile pe mai multe linii nu trebuie sa depaseasca 200 caractere "
+var iConfPass = "Parola nu a fost confirmata corect "
+var iContLen = "Numele contului sa contina intre 5 si 15 litere "
+var iPassLen = "parola sa contina intre 5 si 15 litere "
+var iZIPCode = "Acest camp trebuie sa aibe 5 sau 9 cifre "
+var iPhone = "Acest camp trebuie sa aibe 9 cifre "
+var iMobPhoneCif2="lipseste 09"
+var iFixPhonePref="Indicativul incepe cu cifra 0"
+var iWorldPhone = "Numar international valid "
+var iSSN = "Acest camp trebuie sa aibe 9 cifre "
+var iEmail = "Acest camp trebuie sa fie o adresa de e-mail valida "
+var iCreditCardPrefix = "Nu este valida "
+var iCreditCardSuffix = "Acest camp trebuie fie valid "
+var iDay = "Acest camp trebuie fie intre 1 sid 31 "
+var iMonth = "Acest camp trebuie sa fie intre 1 and 12 "
+var iYear = "Acest camp trebuie sa aibe 4 cifre "
+var iDatePrefix = "Ziua, Luna, Anul pentru "
+var iDateSuffix = " Data nu este valida "
+// p is an abbreviation for "prompt"
+var pEntryPrompt = "Please enter a "
+var pStateCode = "2 caractere (ca: CA)."
+var pZIPCode = "5 sau 9 U.S. ZIP Code."
+var pPhone = "10 cifre U.S. phone number."
+var pWorldPhone = "numar de telefon international."
+var pSSN = "9 cifre SSN."
+var pEmail = "addresa email valida."
+var pCreditCard = "card valid."
+var pDay = "ziua intre 1 si 31."
+var pMonth = "luna intre 1 si 12."
+var pYear = "4 cifre pentru an."
+//ceea ce returneza implicit fct. cand nu au valori
+var defaultEmptyOK = false
+//pentru Navigator 2.0,
+function makeArray(n) {
+for (var i = 1; i <= n; i++) {
+this[i] = 0
+}
+return this
+}
+//nr de zile ale lunii
+var daysInMonth = makeArray(12);
+daysInMonth[1] = 31;
+daysInMonth[2] = 29; // must programmatically check this
+daysInMonth[3] = 31;
+daysInMonth[4] = 30;
+daysInMonth[5] = 31;
+daysInMonth[6] = 30;
+daysInMonth[7] = 31;
+daysInMonth[8] = 31;
+daysInMonth[9] = 30;
+daysInMonth[10] = 31;
+daysInMonth[11] = 30;
+daysInMonth[12] = 31;
+var USStateCodeDelimiter = "|";
+function isEmpty(s){
+return ((s == null) || (s.length == 0))
+}
+function isWhitespace (s){
+var i;
+if (isEmpty(s)) return true;
+for (i = 0; i < s.length; i++){
+var c = s.charAt(i);
+if (whitespace.indexOf(c) == -1) return false;
+}
+return true;
+}
+function stripCharsInBag (s, bag){
+var i;
+var returnString = "";
+for (i = 0; i < s.length; i++){
+// caracterul nu este spatiu
+var c = s.charAt(i);
+if (bag.indexOf(c) == -1) returnString += c;
+}
+return returnString;
+}
+function stripCharsNotInBag (s, bag){
+var i;
+var returnString = "";
+for (i = 0; i < s.length; i++){
+// caracterul nu este spatiu
+var c = s.charAt(i);
+if (bag.indexOf(c) != -1) returnString += c;
+}
+return returnString;
+}
+function stripWhitespace (s){return stripCharsInBag (s, whitespace)}
+//pentru Navigator 2.0.2,
+function charInString (c, s){
+for (i = 0; i < s.length; i++){
+if (s.charAt(i) == c) return true;
+}
+return false
+}
+function stripInitialWhitespace (s){
+var i = 0;
+while ((i < s.length) && charInString (s.charAt(i), whitespace)) i++;
+return s.substring (i, s.length);
+}
+//adevarat daca c este (A .. Z, a..z); pentru versiunea i18n
+function isLetter (c){
+return ( ((c >= "a") && (c <= "z")) || ((c >= "A") && (c <= "Z")) )
+}
+function isDigit (c){
+return ((c >= "0") && (c <= "9"))
+}
+function isLetterOrDigit (c){
+return (isLetter(c) || isDigit(c))
+}
+function isAllowedChar (c) {
+return ((c=="-") || (c==".") || (c==" ") || (c=="\\")
+|| (c=="/") || (c==",") || (c=="\t") || (c=="\r")
+|| (c=="\n") || (c=="(") || (c==")"))
+}
+// EXEMPLE
+// isInteger ("5") true
+// isInteger ("") defaultEmptyOK
+// isInteger ("-5") false
+// isInteger ("", true) true
+// isInteger ("", false) false
+// isInteger ("5", false) true
+function isInteger (s){
+var i;
+if(isEmpty(s))
+if (isInteger.arguments.length == 1) return defaultEmptyOK;
+else return (isInteger.arguments[1] == true);
+for(i = 0; i < s.length; i++){
+var c = s.charAt(i);
+if (!isDigit(c)) return false;
+}
+return true;
+}
+// EXEMPLE
+// isSignedInteger ("5") true
+// isSignedInteger ("") defaultEmptyOK
+// isSignedInteger ("-5") true
+// isSignedInteger ("+5") true
+// isSignedInteger ("", false) false
+// isSignedInteger ("", true) true
+function isSignedInteger (s){
+if (isEmpty(s))
+if (isSignedInteger.arguments.length == 1) return defaultEmptyOK;
+else return (isSignedInteger.arguments[1] == true);
+else{
+var startPos = 0;
+var secondArg = defaultEmptyOK;
+if (isSignedInteger.arguments.length > 1)
+secondArg = isSignedInteger.arguments[1];
+if ( (s.charAt(0) == "-") || (s.charAt(0) == "+") )
+startPos = 1;
+return (isInteger(s.substring(startPos, s.length), secondArg))
+}
+}
+function isPositiveInteger (s){
+var secondArg = defaultEmptyOK;
+if (isPositiveInteger.arguments.length > 1)
+secondArg = isPositiveInteger.arguments[1];
+return (isSignedInteger(s, secondArg)
+&& ( (isEmpty(s) && secondArg) || (parseInt (s) > 0) ) );
+}
+function isNonnegativeInteger (s){
+var secondArg = defaultEmptyOK;
+if (isNonnegativeInteger.arguments.length > 1)
+secondArg = isNonnegativeInteger.arguments[1];
+return (isSignedInteger(s, secondArg)
+&& ( (isEmpty(s) && secondArg) || (parseInt (s) >= 0) ) );
+}
+function isNegativeInteger (s){
+var secondArg = defaultEmptyOK;
+if (isNegativeInteger.arguments.length > 1)
+secondArg = isNegativeInteger.arguments[1];
+return (isSignedInteger(s, secondArg)
+&& ( (isEmpty(s) && secondArg) || (parseInt (s) < 0) ) );
+}
+function isNonpositiveInteger (s){
+var secondArg = defaultEmptyOK;
+if (isNonpositiveInteger.arguments.length > 1)
+secondArg = isNonpositiveInteger.arguments[1];
+return (isSignedInteger(s, secondArg)
+&& ( (isEmpty(s) && secondArg) || (parseInt (s) <= 0) ) );
+}
+function isFloat (s){
+var i;
+var seenDecimalPoint = false;
+if (isEmpty(s))
+if (isFloat.arguments.length == 1) return defaultEmptyOK;
+else return (isFloat.arguments[1] == true);
+if (s == decimalPointDelimiter) return false;
+for (i = 0; i < s.length; i++){
+var c = s.charAt(i);
+if ((c == decimalPointDelimiter) && !seenDecimalPoint)
+seenDecimalPoint = true;
+else if (!isDigit(c)) return false;
+}
+return true;
+}
+function isSignedFloat (s){
+if (isEmpty(s))
+if (isSignedFloat.arguments.length == 1) return defaultEmptyOK;
+else return (isSignedFloat.arguments[1] == true);
+else {
+var startPos = 0;
+var secondArg = defaultEmptyOK;
+if (isSignedFloat.arguments.length > 1)
+secondArg = isSignedFloat.arguments[1];
+if ( (s.charAt(0) == "-") || (s.charAt(0) == "+") )
+startPos = 1;
+return (isFloat(s.substring(startPos, s.length), secondArg))
+}
+}
+function isAlphabetic (s){
+var i;
+if (isEmpty(s))
+if (isAlphabetic.arguments.length == 1) return defaultEmptyOK;
+else return (isAlphabetic.arguments[1] == true);
+for (i = 0; i < s.length; i++){
+var c = s.charAt(i);
+if (!isLetter(c))
+return false;
+}
+return true;
+}
+function isAlphanumeric (s){
+var i;
+if (isEmpty(s))
+if (isAlphanumeric.arguments.length == 1) return defaultEmptyOK;
+else return (isAlphanumeric.arguments[1] == true);
+for (i = 0; i < s.length; i++){
+var c = s.charAt(i);
+if (! (isLetter(c) || isDigit(c) ) )
+return false;
+}
+return true;
+}
+function isValidChars(s){
+var i;
+if (isEmpty(s))
+if (isValidChars.arguments.length == 1) return defaultEmptyOK;
+else return (isValidChars.arguments[1] == true);
+for (i = 0; i < s.length; i++){
+var c = s.charAt(i);
+if (! (isLetter(c) || isDigit(c) || isAllowedChar(c)) )
+return false;
+}
+return true;
+}
+//formatari EXEMPLE:
+// "(123) 456-7890" : reformat("1234567890", "(", 3, ") ", 3, "-", 4)
+// "123-45-6789" : reformat("123456789", "", 3, "-", 2, "-", 4)
+// reformat (stripCharsNotInBag ("123 456 7890", digits),"(", 3, ") ", 3, "-", 4)
+function reformat (s){
+var arg;
+var sPos = 0;
+var resultString = "";
+for (var i = 1; i < reformat.arguments.length; i++) {
+arg = reformat.arguments[i];
+if (i % 2 == 1) resultString += arg;
+else {
+resultString += s.substring(sPos, sPos + arg);
+sPos += arg;
+}
+}
+return resultString;
+}
+//validari campuri
+function isMobPhoneNumber (s){
+if (isEmpty(s))
+if (isMobPhoneNumber.arguments.length == 1) return defaultEmptyOK;
+else return (isMobPhoneNumber.arguments[1] == true);
+return (isInteger(s) && s.length == digitsInPhoneNumber)
+}
+function isFixPhoneNumber (s){
+if (isEmpty(s))
+if (isFixPhoneNumber.arguments.length == 1) return defaultEmptyOK;
+else return (isFixPhoneNumber.arguments[1] == true);
+return (isInteger(s) && s.length == digitsInPhoneNumber)
+}
+function isTelPhoneNumber (s){
+var i;
+if (isEmpty(s))
+if (isTelPhoneNumber.arguments.length == 1) return defaultEmptyOK;
+else return (isTelPhoneNumber.arguments[1] == true);
+for (i = 0; i < s.length; i++){
+var c = s.charAt(i);
+if (! (isDigit(c) || isAllowedChar(c)) )
+return false;
+}
+return true;
+}
+function isInternationalPhoneNumber (s){
+if (isEmpty(s))
+if (isInternationalPhoneNumber.arguments.length == 1) return defaultEmptyOK;
+else return (isInternationalPhoneNumber.arguments[1] == true);
+return (isPositiveInteger(s))
+}
+function isEmail (s){
+if (isEmpty(s))
+if (isEmail.arguments.length == 1) return defaultEmptyOK;
+else return (isEmail.arguments[1] == true);
+if (isWhitespace(s)) return false;
+var i = 1;
+var sLength = s.length;
+while ((i < sLength) && (s.charAt(i) != "@")){ i++}
+if ((i >= sLength) || (s.charAt(i) != "@")) return false;
+else i += 2;
+while ((i < sLength) && (s.charAt(i) != ".")){ i++}
+if ((i >= sLength - 1) || (s.charAt(i) != ".")) return false;
+else return true;
+}
+function isYear (s){
+if (isEmpty(s))
+if (isYear.arguments.length == 1) return defaultEmptyOK;
+else return (isYear.arguments[1] == true);
+if (!isNonnegativeInteger(s)) return false;
+return (s.length == 4);
+}
+function isIntegerInRange (s, a, b){
+if (isEmpty(s))
+if (isIntegerInRange.arguments.length == 1) return defaultEmptyOK;
+else return (isIntegerInRange.arguments[1] == true);
+if (!isInteger(s, false)) return false;
+var num = parseInt (s);
+return ((num >= a) && (num <= b));
+}
+function isFloatInRange (s, a, b){
+if (isEmpty(s))
+if (isFloatInRange.arguments.length == 1) return defaultEmptyOK;
+else return (isFloatInRange.arguments[1] == true);
+if (!isFloat(s, false)) return false;
+var num = parseInt (s);
+return ((num >= a) && (num <= b));
+}
+function isMonth (s){
+if (isEmpty(s))
+if (isMonth.arguments.length == 1) return defaultEmptyOK;
+else return (isMonth.arguments[1] == true);
+return isIntegerInRange (s, 1, 12);
+}
+function isDay (s){
+if (isEmpty(s))
+if (isDay.arguments.length == 1) return defaultEmptyOK;
+else return (isDay.arguments[1] == true);
+return isIntegerInRange (s, 1, 31);
+}
+function daysInFebruary (year){
+// Februarie are 29 zile in orice an div. la 4; exceptie cand an div 100 dar nu cu 400
+return ( ((year % 4 == 0) && ( (!(year % 100 == 0)) || (year % 400 == 0) ) ) ? 29 : 28 );
+}
+
+function isDate(udt)
+{
+    dtFormat = 'DD-MM-YYYY';
+    if(udt.indexOf("-") == -1)
+    return false;
+    dt1 = udt.split("-");
+
+    if(isNaN(dt1[0]) || isNaN(dt1[1]) || isNaN(dt1[2]))
+    return false;
+    
+    var myDayStr = dt1[0];
+    var myMonthShr = dt1[1];
+    var myMonthStr = myMonthShr-1;
+    var myYearStr = dt1[2];
+    var myMonth  = new Array('January','February','March','April','May','June','July','August','September','October','November','December'); 
+    var myDateStr = myDayStr + ' ' + myMonth[myMonthStr] + ' ' + myYearStr;
+    var myDate  = new Date();
+    myDate.setFullYear( myYearStr, myMonthStr, myDayStr );
+     if ( myDate.getMonth() != myMonthStr ) 
+     {  
+      alert('"'+myDateStr + '" is NOT a valid date.' );
+      return false;
+     }
+     else
+     {
+      return true;
+     }
+}
+//mesaje
+function prompt (s){ window.status = s }
+function promptEntry (s){ window.status = pEntryPrompt + s }
+function warnEmpty (theField, s){
+theField.focus()
+alert(mPrefix + s + mSuffix)
+return false
+}
+function warnInvalid (theField, s){
+theField.focus()
+theField.select()
+alert(s)
+return false
+}
+//verificare valori campuri
+function checkString (theField, s, emptyOK){
+if(checkString.arguments.length == 2) emptyOK = defaultEmptyOK;
+if(((emptyOK == true) && (isEmpty(theField.value))) || (isWhitespace(theField.value))) return true;
+else{
+if(isWhitespace(theField.value))
+return warnEmpty (theField, s);
+if(theField.value.length>MaxString)
+return warnInvalid(theField,iMaxString);
+else return true;
+}
+return false;
+}
+function checkStringLen(theField,s,no, emptyOK){
+if(checkStringLen.arguments.length == 3) emptyOK = defaultEmptyOK;
+if(((emptyOK == true) && (isEmpty(theField.value))) || (isWhitespace(theField.value))) return true;
+else{
+if(isWhitespace(theField.value))
+return warnEmpty (theField, s);
+var max = parseInt (no);
+if(theField.value.length>max){
+var text = "Maxim " + no + " caracatere"
+return warnInvalid(theField,text);
+}
+else return true;
+}
+return false;
+}
+function checkInt(theField, s, emptyOK){
+if (checkInt.arguments.length == 2) emptyOK = defaultEmptyOK;
+if (((emptyOK == true) && (isEmpty(theField.value)))||(isWhitespace(theField.value))) return true;
+else{
+if(isWhitespace(theField.value))
+return warnEmpty (theField, s);
+if(theField.value.length>MaxInt)
+return warnInvalid(theField,iMaxInt);
+var norma = stripCharsInBag(theField.value, whitespace);//phoneNumberDelimiters)
+if(isInteger(norma,true)){
+var num = parseInt (norma);
+if((num > 2147483646) || (num < 0))
+return warnInvalid(theField,iIntPozInterval);
+}
+else
+return warnInvalid(theField,iInt);
+return true;
+}
+return false;
+}
+function checkTextare(theField, s, emptyOK){
+if(checkTextare.arguments.length == 2)
+emptyOK = defaultEmptyOK;
+if((emptyOK == true) && (isEmpty(theField.value))) return true;
+if(isWhitespace(theField.value))
+return warnEmpty (theField, s);
+if(theField.value.length>MaxAdress)
+return warnInvalid(theField,iMaxAdress);
+else return true;
+}
+function checkPass(f0,f1,f2){
+if((f0.value.length < ContLength) || (f0.value.length > MaxCP))
+return warnInvalid(f0,iContLen);
+if((f1.value.length < PassLength) || (f1.value.length > MaxCP))
+return warnInvalid(f1,iPassLen);
+if(f1.value!=f2.value)
+return warnInvalid(f1,iConfPass);
+return true;
+}
+// theField.value = theField.value.toUpperCase();
+function checkMobPhone (theField, emptyOK){
+if (checkMobPhone.arguments.length == 1) emptyOK = defaultEmptyOK;
+if ((emptyOK == true) && (isEmpty(theField.value))) return true;
+else{
+var normalizedPhone = stripCharsInBag(theField.value, phoneNumberDelimiters)
+if (!isMobPhoneNumber(normalizedPhone, false))
+return warnInvalid (theField, iPhone);
+else{
+var cif2 = normalizedPhone.substring(0,2);
+if(cif2!="09")
+return warnInvalid (theField, iMobPhoneCif2);
+theField.value = reformat (normalizedPhone, "", 3, " - ",6)
+return true;
+}
+}
+}
+function checkFixPhone (theField, emptyOK){
+if (checkFixPhone.arguments.length == 1) emptyOK = defaultEmptyOK;
+if ((emptyOK == true) && (isEmpty(theField.value))) return true;
+var normalizedPhone = stripCharsInBag(theField.value, phoneNumberDelimiters)
+if (!isFixPhoneNumber(normalizedPhone, false))
+return warnInvalid (theField, iPhone);
+else{
+var cif1 = normalizedPhone.substring(0,1);
+if(cif1!="0")
+return warnInvalid (theField,iFixPhonePref);
+theField.value = reformat (normalizedPhone, "", 1, " ",8)
+return true;
+}
+}
+function checkInternationalPhone1 (theField, emptyOK){
+if (checkInternationalPhone.arguments.length == 1) emptyOK = defaultEmptyOK;
+if ((emptyOK == true) && (isEmpty(theField.value))) return true;
+else{
+if (!isInternationalPhoneNumber(theField.value, false))
+return warnInvalid (theField, iWorldPhone);
+else return true;
+}
+}
+function checkEmail (theField, emptyOK){
+if (checkEmail.arguments.length == 1) emptyOK = defaultEmptyOK;
+if ((emptyOK == true) && (isEmpty(theField.value))) return true;
+else if (!isEmail(theField.value, false))
+return warnInvalid (theField, iEmail);
+else return true;
+}
+/*
+function checkYear (theField, emptyOK){
+if (checkYear.arguments.length == 1) emptyOK = defaultEmptyOK;
+if ((emptyOK == true) && (isEmpty(theField.value))) return true;
+if (!isYear(theField.value, false))
+return warnInvalid (theField, iYear);
+else return true;
+}
+function checkMonth (theField, emptyOK){
+if (checkMonth.arguments.length == 1) emptyOK = defaultEmptyOK;
+if ((emptyOK == true) && (isEmpty(theField.value))) return true;
+if (!isMonth(theField.value, false))
+return warnInvalid (theField, iMonth);
+else return true;
+}
+function checkDay (theField, emptyOK){
+if (checkDay.arguments.length == 1) emptyOK = defaultEmptyOK;
+if ((emptyOK == true) && (isEmpty(theField.value))) return true;
+if (!isDay(theField.value, false))
+return warnInvalid (theField, iDay);
+else return true;
+}
+function checkDate (yearField, monthField, dayField, labelString, OKtoOmitDay){
+if (checkDate.arguments.length == 4) OKtoOmitDay = false;
+if (!isYear(yearField.value)) return warnInvalid (yearField, iYear);
+if (!isMonth(monthField.value)) return warnInvalid (monthField, iMonth);
+if ( (OKtoOmitDay == true) && isEmpty(dayField.value) ) return true;
+else
+if (!isDay(dayField.value))
+return warnInvalid (dayField, iDay);
+if (isDate (yearField.value, monthField.value, dayField.value))
+return true;
+alert (iDatePrefix + labelString + iDateSuffix)
+return false
+}
+*/
+function getRadioButtonValue (radio){
+for (var i = 0; i < radio.length; i++){ if (radio[i].checked) { break } }
+return radio[i].value
+}
+// adaugate//////////////////////////////////////////////////////////////////
+function do_reply() {
+document.view.submit();
+}
+function putvoid(obiect) {
+obiect.cuvch.value="";
+obiect.pretm.value="";
+}
+/////////////////////cartea de credit//////////////////////
+function checkCreditCard (radio, theField){
+var cardType = getRadioButtonValue (radio)
+var normalizedCCN = stripCharsInBag(theField.value, creditCardDelimiters)
+if (!isCardMatch(cardType, normalizedCCN))
+return warnInvalid (theField, iCreditCardPrefix + cardType + iCreditCardSuffix);
+else {
+theField.value = normalizedCCN
+return true
+}
+}
+function isCreditCard(st) {
+if (st.length > 19)
+return (false);
+sum = 0; mul = 1; l = st.length;
+for (i = 0; i < l; i++) {
+digit = st.substring(l-i-1,l-i);
+tproduct = parseInt(digit ,10)*mul;
+if (tproduct >= 10)
+sum += (tproduct % 10) + 1;
+else
+sum += tproduct;
+if (mul == 1)
+mul++;
+else
+mul--;
+}
+if ((sum % 10) == 0)
+return (true);
+else
+return (false);
+}
+function isVisa(cc){
+if (((cc.length == 16) || (cc.length == 13)) && (cc.substring(0,1) == 4))
+return isCreditCard(cc);
+return false;
+}
+//Sample number: 5500 0000 0000 0004 (16 digits)
+function isMasterCard(cc){
+firstdig = cc.substring(0,1);
+seconddig = cc.substring(1,2);
+if ((cc.length == 16) && (firstdig == 5) &&
+((seconddig >= 1) && (seconddig <= 5)))
+return isCreditCard(cc);
+return false;
+}
+//Sample number: 340000000000009 (15 digits)
+function isAmericanExpress(cc){
+firstdig = cc.substring(0,1);
+seconddig = cc.substring(1,2);
+if ((cc.length == 15) && (firstdig == 3) &&
+((seconddig == 4) || (seconddig == 7)))
+return isCreditCard(cc);
+return false;
+}
+//Sample number: 30000000000004 (14 digits)
+function isDinersClub(cc){
+firstdig = cc.substring(0,1);
+seconddig = cc.substring(1,2);
+if ((cc.length == 14) && (firstdig == 3) &&
+((seconddig == 0) || (seconddig == 6) || (seconddig == 8)))
+return isCreditCard(cc);
+return false;
+}
+function isCarteBlanche(cc){ return isDinersClub(cc);}
+//Sample number: 6011000000000004 (16 digits)
+function isDiscover(cc){
+first4digs = cc.substring(0,4);
+if ((cc.length == 16) && (first4digs == "6011"))
+return isCreditCard(cc);
+return false;
+}
+//Sample number: 201400000000009 (15 digits)
+function isEnRoute(cc){
+first4digs = cc.substring(0,4);
+if ((cc.length == 15) &&
+((first4digs == "2014") ||
+(first4digs == "2149")))
+return isCreditCard(cc);
+return false;
+}
+function isJCB(cc){
+first4digs = cc.substring(0,4);
+if ((cc.length == 16) && ((first4digs == "3088") ||
+(first4digs == "3096") || (first4digs == "3112") ||
+(first4digs == "3158") || (first4digs == "3337") ||
+(first4digs == "3528")))
+return isCreditCard(cc);
+return false;
+}
+function isAnyCard(cc){
+if (!isCreditCard(cc))
+return false;
+if (!isMasterCard(cc) && !isVisa(cc) && !isAmericanExpress(cc) && !isDinersClub(cc) &&
+!isDiscover(cc) && !isEnRoute(cc) && !isJCB(cc)) {
+return false;
+}
+return true;
+}
+function isCardMatch (cardType, cardNumber){
+cardType = cardType.toUpperCase();
+var doesMatch = true;
+if ((cardType == "VISA") && (!isVisa(cardNumber)))
+doesMatch = false;
+if ((cardType == "MASTERCARD") && (!isMasterCard(cardNumber)))
+doesMatch = false;
+if ( ( (cardType == "AMERICANEXPRESS") || (cardType == "AMEX") )
+&& (!isAmericanExpress(cardNumber))) doesMatch = false;
+if ((cardType == "DISCOVER") && (!isDiscover(cardNumber)))
+doesMatch = false;
+if ((cardType == "JCB") && (!isJCB(cardNumber)))
+doesMatch = false;
+if ((cardType == "DINERS") && (!isDinersClub(cardNumber)))
+doesMatch = false;
+if ((cardType == "CARTEBLANCHE") && (!isCarteBlanche(cardNumber)))
+doesMatch = false;
+if ((cardType == "ENROUTE") && (!isEnRoute(cardNumber)))
+doesMatch = false;
+return doesMatch;
+}
+//prescurtari la denumiri
+function IsCC (st) { return isCreditCard(st);}
+function IsVisa (cc) { return isVisa(cc);}
+function IsVISA (cc) { return isVisa(cc);}
+function IsMasterCard (cc) { return isMasterCard(cc);}
+function IsMastercard (cc) { return isMasterCard(cc);}
+function IsMC (cc) { return isMasterCard(cc);}
+function IsAmericanExpress (cc) { return isAmericanExpress(cc);}
+function IsAmEx (cc) { return isAmericanExpress(cc);}
+function IsDinersClub (cc) { return isDinersClub(cc);}
+function IsDC (cc) { return isDinersClub(cc);}
+function IsDiners (cc) { return isDinersClub(cc);}
+function IsCarteBlanche (cc) { return isCarteBlanche(cc);}
+function IsCB (cc) { return isCarteBlanche(cc);}
+function IsDiscover (cc) { return isDiscover(cc);}
+function IsEnRoute (cc) { return isEnRoute(cc);}
+function IsenRoute (cc) { return isEnRoute(cc);}
+function IsJCB (cc) { return isJCB(cc);}
+function IsAnyCard(cc) { return isAnyCard(cc);}
+function IsCardMatch (cardType, cardNumber) { return isCardMatch (cardType, cardNumber);}
+/* standard functions ends here */
+/* form valdation of news letters groups */
+function validatenNewslgrp() // NewsLetters-Groups : Validation function
+{
+if (! isAlphanumeric(document.frmnewslgrp.groupname.value,false))
+{
+alert("Please Enter Valid Group name");
+document.frmnewslgrp.groupname.focus();
+return false;
+}
+if (!isWhitespace(document.frmnewslgrp.groupname.value))
+{
+alert("Can not enter Blank spaces!");
+document.frmnewslgrp.groupname.focus();
+return false;
+}
+return true
+}
+function popUp(URL) {
+day = new Date();
+id = day.getTime();
+eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=400,height=400,left = 312,top = 184');");
+}
+function popUpPolicy(URL) {
+day = new Date();
+id = day.getTime();
+eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=800,height=500,left = 312,top = 184');");
+}
+/**
+* DHTML phone number validation script. Courtesy of SmartWebby.com (http://www.smartwebby.com/dhtml/)
+*/
+// Declaring required variables
+var digits = "0123456789";
+// non-digit characters which are allowed in phone numbers
+var phoneNumberDelimiters = "()- ";
+// characters which are allowed in international phone numbers
+// (a leading + is OK)
+var validWorldPhoneChars = phoneNumberDelimiters + "+";
+// Minimum no of digits in an international phone no.
+var minDigitsInIPhoneNumber = 10;
+function isInteger(s)
+{ var i;
+for (i = 0; i < s.length; i++)
+{
+// Check that current character is number.
+var c = s.charAt(i);
+if (((c < "0") || (c > "9"))) return false;
+}
+// All characters are numbers.
+return true;
+}
+function trim(s)
+{ var i;
+var returnString = "";
+// Search through string's characters one by one.
+// If character is not a whitespace, append to returnString.
+for (i = 0; i < s.length; i++)
+{
+// Check that current character isn't whitespace.
+var c = s.charAt(i);
+if (c != " ") returnString += c;
+}
+return returnString;
+}
+function stripCharsInBag(s, bag)
+{ var i;
+var returnString = "";
+// Search through string's characters one by one.
+// If character is not in bag, append to returnString.
+for (i = 0; i < s.length; i++)
+{
+// Check that current character isn't whitespace.
+var c = s.charAt(i);
+if (bag.indexOf(c) == -1) returnString += c;
+}
+return returnString;
+}
+function isValidPostal(postalCode)
+{
+var pc = /[^a-zA-Z0-9]/g;
+if(postalCode.match(pc)!=null){
+alert('Invalid sign(s) in postal code: '+postalCode.match(pc));
+return false;
+}
+else if(postalCode.length!=5){
+alert('Postal code has to consist of 5 letters and digits!');
+return false;
+}
+else{
+return true;
+}
+}
+
+/*function isNumberKey(evt) {
+var theEvent = evt || window.event;
+var key = theEvent.keyCode || theEvent.which;
+if ((key < 48 || key > 57) && !(key == 8 || key == 9 || key == 13 || key == 37 || key == 39) ){
+theEvent.returnValue = false;
+if (theEvent.preventDefault) theEvent.preventDefault();
+}
+} */
+
+function numbersonly(e)
+{
+var unicode=e.charCode? e.charCode : e.keyCode;
+//alert(unicode)
+if (unicode!=8 && unicode !=9 && unicode !=46 && unicode !=39 && unicode != 46 && unicode != 34 )
+{
+//if the key isn't the backspace,Tab key (which we should allow)
+if (unicode<48||unicode>57) //if not a number
+return false; //disable key press
+}
+}
+function checkInternationalPhone(strPhone){
+var bracket=3
+strPhone=trim(strPhone)
+if(strPhone.indexOf("+")>1) return false
+if(strPhone.indexOf("-")!=-1)bracket=bracket+1
+if(strPhone.indexOf("(")!=-1 && strPhone.indexOf("(")>bracket)return false
+var brchr=strPhone.indexOf("(")
+if(strPhone.indexOf("(")!=-1 && strPhone.charAt(brchr+2)!=")")return false
+if(strPhone.indexOf("(")==-1 && strPhone.indexOf(")")!=-1)return false
+s=stripCharsInBag(strPhone,validWorldPhoneChars);
+return (isInteger(s) && s.length >= minDigitsInIPhoneNumber);
+}
+function isValidPostalFiveToEightDigit(postalCode)
+{
+var pc = /[^a-zA-Z0-9]/g;
+if(postalCode.match(pc)!=null){
+alert('Invalid sign(s) in postal code: '+postalCode.match(pc));
+return false;
+}
+else if(postalCode.length < 5 || postalCode.length > 8){
+alert('Postal code has to consist of 5 to 8 letters and digits!');
+return false;
+}
+else{
+return true;
+}
+}
+
+function validateNewUser()
+{
+if(isWhitespace(document.getElementById("user_name").value) == true){
+document.getElementById("user_namev").innerHTML = "<br>Please Enter User Name!";
+document.getElementById("user_name").focus();
+return false;
+}else{
+document.getElementById("user_namev").innerHTML = "";
+}
+if(isWhitespace(document.getElementById("user_password").value) == true){
+document.getElementById("user_passwordv").innerHTML = "<br>Please Enter Password!";
+document.getElementById("user_password").focus();
+return false;
+}else{
+document.getElementById("user_passwordv").innerHTML = "";
+}
+if(isWhitespace(document.getElementById("user_password_confirm").value) == true){
+document.getElementById("user_password_confirmv").innerHTML = "<br>Please Enter Confirm Password!";
+document.getElementById("user_password_confirm").focus();
+return false;
+}else{
+document.getElementById("user_password_confirmv").innerHTML = "";
+}
+if(MatchPasswords(document.getElementById("user_password").value, document.getElementById("user_password_confirm").value) == false) {
+document.getElementById("user_password_confirmv").innerHTML = "Passwords Do Not Match!";
+document.getElementById("user_password_confirm").focus();
+return false;
+} else {
+document.getElementById("user_password_confirmv").innerHTML = "";
+}
+if(isWhitespace(document.getElementById("user_fname").value) == true){
+document.getElementById("user_fnamev").innerHTML = "<br>Please Enter First Name!";
+document.getElementById("user_fname").focus();
+return false;
+}else{
+document.getElementById("user_fnamev").innerHTML = "";
+}
+if(isWhitespace(document.getElementById("user_fname").value) == true){
+document.getElementById("user_fnamev").innerHTML = "<br>Please Enter First Name!";
+document.getElementById("user_fname").focus();
+return false;
+}else{
+document.getElementById("user_fnamev").innerHTML = "";
+}
+if(isWhitespace(document.getElementById("user_lname").value) == true){
+document.getElementById("user_lnamev").innerHTML = "<br>Please Enter Last Name!";
+document.getElementById("user_lname").focus();
+return false;
+}else{
+document.getElementById("user_lnamev").innerHTML = "";
+}
+if(isWhitespace(document.getElementById("user_email").value) == true){
+document.getElementById("user_emailv").innerHTML = "<br>Please Enter Email!";
+document.getElementById("user_email").focus();
+return false;
+}else{
+document.getElementById("user_emailv").innerHTML = "";
+}
+if(isValidEmail(document.getElementById("user_email").value) == false) {
+document.getElementById("user_emailv").innerHTML = "Please Enter Valid Email!";
+document.getElementById("user_email").focus();
+return false;
+} else {
+document.getElementById("user_emailv").innerHTML = "";
+}
+if(isWhitespace(document.getElementById("security_code").value) == true){
+document.getElementById("user_code").innerHTML = "<br>Please Enter Security Code!";
+document.getElementById("security_code").focus();
+return false;
+}else{
+document.getElementById("user_code").innerHTML = "";
+}
+return true;
+}
+
+function validateNewUserEdit()
+{
+if(isWhitespace(document.getElementById("user_fname").value) == true){
+document.getElementById("user_fnamev").innerHTML = "<br>Please Enter First Name!";
+document.getElementById("user_fname").focus();
+return false;
+}else{
+document.getElementById("user_fnamev").innerHTML = "";
+}
+if(isWhitespace(document.getElementById("user_lname").value) == true){
+document.getElementById("user_lnamev").innerHTML = "<br>Please Enter Last Name!";
+document.getElementById("user_lname").focus();
+return false;
+}else{
+document.getElementById("user_lnamev").innerHTML = "";
+}
+if(isWhitespace(document.getElementById("user_email").value) == true){
+document.getElementById("user_emailv").innerHTML = "<br>Please Enter Email!";
+document.getElementById("user_email").focus();
+return false;
+}else{
+document.getElementById("user_emailv").innerHTML = "";
+}
+if(isValidEmail(document.getElementById("user_email").value) == false) {
+document.getElementById("user_emailv").innerHTML = "Please Enter Valid Email!";
+document.getElementById("user_email").focus();
+return false;
+} else {
+document.getElementById("user_emailv").innerHTML = "";
+}
+if(isWhitespace(document.getElementById("user_password").value) == true){
+document.getElementById("user_passv").innerHTML = "<br>Please Enter Password!";
+document.getElementById("user_password").focus();
+return false;
+}else{
+document.getElementById("user_passv").innerHTML = "";
+}
+return true;
+}
+
+function redirect( loc )
+{
+    location.href = loc;
+} 
+function checkDate() 
+{
+	var myDayStr	=	document.getElementById('day').value;
+	var myMonthShr	=	document.getElementById('month').value;
+	var myMonthStr	=	myMonthShr-1;
+	var myYearStr	=	document.getElementById('year').value;
+	var myMonth		=	new Array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'); 
+	var myDateStr	=	myDayStr + ' ' + myMonth[myMonthStr] + ' ' + myYearStr;
+	var myDate		=	new Date();
+	myDate.setFullYear( myYearStr, myMonthStr, myDayStr );
+	if ( myDate.getMonth() != myMonthStr ) 
+	{		
+		alert('"'+myDateStr + '" is NOT a valid date.' );
+		var ret	=	1;
+	}
+	else
+	{
+		var ret	=	0;
+	}
+	return ret;
+}
+
+ 
+ /*function isNumberKey (x)   {
+
+    var len=x.value.length;
+
+    var s_charcode=0;
+
+    for(var s_i=0;s_i<len;s_i++)
+
+    {
+
+     s_charcode=x.value.charCodeAt(s_i);
+
+     if(!((s_charcode>=48 && s_charcode<=57)))
+
+     {
+
+       alert("Enter only numbers");
+
+       x.value="";
+
+       x.focus();
+
+       return false;
+
+     }
+
+    }
+
+    return true;
+
+   }*/
+        

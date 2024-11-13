@@ -1,0 +1,620 @@
+//ADDEDD ON 24/03/09 FOR OPTION FORM MOVE OPTIONS UP AND DOWN LEFT TO RIGHT SELECT ALL REMOVE ALL FUNCTIONS
+
+// ===================================================================
+// Author: Matt Kruse <matt@mattkruse.com>
+// WWW: http://www.mattkruse.com/
+//
+// NOTICE: You may use this code for any purpose, commercial or
+// private, without any further permission from the author. You may
+// remove this notice from your final code if you wish, however it is
+// appreciated by the author if at least my web site address is kept.
+//
+// You may *NOT* re-distribute this code in any way except through its
+// use. That means, you can include it in your product, or your web
+// site, or any other form where the code is actually being used. You
+// may not put the plain javascript up on your site for download or
+// include it in your javascript libraries for download. 
+// If you wish to share this code with others, please just point them
+// to the URL instead.
+// Please DO NOT link directly to my .js files from your site. Copy
+// the files to your server and use them there. Thank you.
+// ===================================================================
+
+// HISTORY
+// ------------------------------------------------------------------
+// April 20, 2005: Fixed the removeSelectedOptions() function to 
+//                 correctly handle single selects
+// June 12, 2003: Modified up and down functions to support more than
+//                one selected option
+/*
+DESCRIPTION: These are general functions to deal with and manipulate
+select boxes. Also see the OptionTransfer library to more easily 
+handle transferring options between two lists
+
+COMPATABILITY: These are fairly basic functions - they should work on
+all browsers that support Javascript.
+*/
+
+
+// -------------------------------------------------------------------
+// hasOptions(obj)
+//  Utility function to determine if a select object has an options array
+// -------------------------------------------------------------------
+function hasOptions(obj) {
+	if (obj!=null && obj.options!=null) { return true; }
+	return false;
+	}
+
+// -------------------------------------------------------------------
+// selectUnselectMatchingOptions(select_object,regex,select/unselect,true/false)
+//  This is a general function used by the select functions below, to
+//  avoid code duplication
+// -------------------------------------------------------------------
+function selectUnselectMatchingOptions(obj,regex,which,only) {
+	if (window.RegExp) {
+		if (which == "select") {
+			var selected1=true;
+			var selected2=false;
+			}
+		else if (which == "unselect") {
+			var selected1=false;
+			var selected2=true;
+			}
+		else {
+			return;
+			}
+		var re = new RegExp(regex);
+		if (!hasOptions(obj)) { return; }
+		for (var i=0; i<obj.options.length; i++) {
+			if (re.test(obj.options[i].text)) {
+				obj.options[i].selected = selected1;
+				}
+			else {
+				if (only == true) {
+					obj.options[i].selected = selected2;
+					}
+				}
+			}
+		}
+	}
+		
+// -------------------------------------------------------------------
+// selectMatchingOptions(select_object,regex)
+//  This function selects all options that match the regular expression
+//  passed in. Currently-selected options will not be changed.
+// -------------------------------------------------------------------
+function selectMatchingOptions(obj,regex) {
+	selectUnselectMatchingOptions(obj,regex,"select",false);
+	}
+// -------------------------------------------------------------------
+// selectOnlyMatchingOptions(select_object,regex)
+//  This function selects all options that match the regular expression
+//  passed in. Selected options that don't match will be un-selected.
+// -------------------------------------------------------------------
+function selectOnlyMatchingOptions(obj,regex) {
+	selectUnselectMatchingOptions(obj,regex,"select",true);
+	}
+// -------------------------------------------------------------------
+// unSelectMatchingOptions(select_object,regex)
+//  This function Unselects all options that match the regular expression
+//  passed in. 
+// -------------------------------------------------------------------
+function unSelectMatchingOptions(obj,regex) {
+	selectUnselectMatchingOptions(obj,regex,"unselect",false);
+	}
+	
+// -------------------------------------------------------------------
+// sortSelect(select_object)
+//   Pass this function a SELECT object and the options will be sorted
+//   by their text (display) values
+// -------------------------------------------------------------------
+function sortSelect(obj) {
+	var o = new Array();
+	if (!hasOptions(obj)) { return; }
+	for (var i=0; i<obj.options.length; i++) {
+		o[o.length] = new Option( obj.options[i].text, obj.options[i].value, obj.options[i].defaultSelected, obj.options[i].selected) ;
+		}
+	if (o.length==0) { return; }
+	o = o.sort( 
+		function(a,b) { 
+			if ((a.text+"") < (b.text+"")) { return -1; }
+			if ((a.text+"") > (b.text+"")) { return 1; }
+			return 0;
+			} 
+		);
+
+	for (var i=0; i<o.length; i++) {
+		obj.options[i] = new Option(o[i].text, o[i].value, o[i].defaultSelected, o[i].selected);
+		}
+	}
+
+// -------------------------------------------------------------------
+// selectAllOptions(select_object)
+//  This function takes a select box and selects all options (in a 
+//  multiple select object). This is used when passing values between
+//  two select boxes. Select all options in the right box before 
+//  submitting the form so the values will be sent to the server.
+// -------------------------------------------------------------------
+function selectAllOptions(obj) {
+	if (!hasOptions(obj)) { return; }
+	for (var i=0; i<obj.options.length; i++) {
+		obj.options[i].selected = true;
+		}
+	}
+	
+// -------------------------------------------------------------------
+// moveSelectedOptions(select_object,select_object[,autosort(true/false)[,regex]])
+//  This function moves options between select boxes. Works best with
+//  multi-select boxes to create the common Windows control effect.
+//  Passes all selected values from the first object to the second
+//  object and re-sorts each box.
+//  If a third argument of 'false' is passed, then the lists are not
+//  sorted after the move.
+//  If a fourth string argument is passed, this will function as a
+//  Regular Expression to match against the TEXT or the options. If 
+//  the text of an option matches the pattern, it will NOT be moved.
+//  It will be treated as an unmoveable option.
+//  You can also put this into the <SELECT> object as follows:
+//    onDblClick="moveSelectedOptions(this,this.form.target)
+//  This way, when the user double-clicks on a value in one box, it
+//  will be transferred to the other (in browsers that support the 
+//  onDblClick() event handler).
+// -------------------------------------------------------------------
+function moveSelectedOptions(from,to) {
+	// Unselect matching options, if required
+	if (arguments.length>3) {
+		var regex = arguments[3];
+		if (regex != "") {
+			unSelectMatchingOptions(from,regex);
+			}
+		}
+	// Move them over
+	if (!hasOptions(from)) { return; }
+	for (var i=0; i<from.options.length; i++) {
+		var o = from.options[i];
+		if (o.selected) {
+			if (!hasOptions(to)) { var index = 0; } else { var index=to.options.length; }
+			to.options[index] = new Option( o.text, o.value, false, false);
+			}
+		}
+	// Delete them from original
+	for (var i=(from.options.length-1); i>=0; i--) {
+		var o = from.options[i];
+		if (o.selected) {
+			from.options[i] = null;
+			}
+		}
+	if ((arguments.length<3) || (arguments[2]==true)) {
+		sortSelect(from);
+		sortSelect(to);
+		}
+	from.selectedIndex = -1;
+	to.selectedIndex = -1;
+	}
+
+// -------------------------------------------------------------------
+// copySelectedOptions(select_object,select_object[,autosort(true/false)])
+//  This function copies options between select boxes instead of 
+//  moving items. Duplicates in the target list are not allowed.
+// -------------------------------------------------------------------
+function copySelectedOptions(from,to) {
+	var options = new Object();
+	if (hasOptions(to)) {
+		for (var i=0; i<to.options.length; i++) {
+			options[to.options[i].value] = to.options[i].text;
+			}
+		}
+	if (!hasOptions(from)) { return; }
+	for (var i=0; i<from.options.length; i++) {
+		var o = from.options[i];
+		if (o.selected) {
+			if (options[o.value] == null || options[o.value] == "undefined" || options[o.value]!=o.text) {
+				if (!hasOptions(to)) { var index = 0; } else { var index=to.options.length; }
+				to.options[index] = new Option( o.text, o.value, false, false);
+				}
+			}
+		}
+	if ((arguments.length<3) || (arguments[2]==true)) {
+		sortSelect(to);
+		}
+	from.selectedIndex = -1;
+	to.selectedIndex = -1;
+	}
+
+// -------------------------------------------------------------------
+// moveAllOptions(select_object,select_object[,autosort(true/false)[,regex]])
+//  Move all options from one select box to another.
+// -------------------------------------------------------------------
+function moveAllOptions(from,to) {
+	selectAllOptions(from);
+	if (arguments.length==2) {
+		moveSelectedOptions(from,to);
+		}
+	else if (arguments.length==3) {
+		moveSelectedOptions(from,to,arguments[2]);
+		}
+	else if (arguments.length==4) {
+		moveSelectedOptions(from,to,arguments[2],arguments[3]);
+		}
+	}
+
+// -------------------------------------------------------------------
+// copyAllOptions(select_object,select_object[,autosort(true/false)])
+//  Copy all options from one select box to another, instead of
+//  removing items. Duplicates in the target list are not allowed.
+// -------------------------------------------------------------------
+function copyAllOptions(from,to) {
+	selectAllOptions(from);
+	if (arguments.length==2) {
+		copySelectedOptions(from,to);
+		}
+	else if (arguments.length==3) {
+		copySelectedOptions(from,to,arguments[2]);
+		}
+	}
+
+// -------------------------------------------------------------------
+// swapOptions(select_object,option1,option2)
+//  Swap positions of two options in a select list
+// -------------------------------------------------------------------
+function swapOptions(obj,i,j) {
+	var o = obj.options;
+	var i_selected = o[i].selected;
+	var j_selected = o[j].selected;
+	var temp = new Option(o[i].text, o[i].value, o[i].defaultSelected, o[i].selected);
+	var temp2= new Option(o[j].text, o[j].value, o[j].defaultSelected, o[j].selected);
+	o[i] = temp2;
+	o[j] = temp;
+	o[i].selected = j_selected;
+	o[j].selected = i_selected;
+	}
+	
+// -------------------------------------------------------------------
+// moveOptionUp(select_object)
+//  Move selected option in a select list up one
+// -------------------------------------------------------------------
+function moveOptionUp(obj,fnl_alt) {
+	if (!hasOptions(obj)) { return; }
+	for (i=0; i<obj.options.length; i++) {
+		if (obj.options[i].selected) {
+			if (i != 0 && !obj.options[i-1].selected) {
+				if(obj.options[i].value == fnl_alt)
+				{
+					alert("You can not move your previous allotted choice code");
+					return false;
+				}else{
+				swapOptions(obj,i,i-1);
+				obj.options[i-1].selected = true;
+				}
+				}
+			}
+		}
+	}
+// -------------------------------------------------------------------
+// moveOptionDown(select_object)
+//  Move selected option in a select list down one
+// -------------------------------------------------------------------
+function moveOptionDown(obj,fnl_alt) {
+	if (!hasOptions(obj)) { return; }
+	for (i=obj.options.length-1; i>=0; i--) {
+		
+			if (obj.options[i].selected) {
+			if (i != (obj.options.length-1) && ! obj.options[i+1].selected) {
+				//alert(obj.options[i].value);
+					if(obj.options[i+1].value == fnl_alt)
+					{
+						alert("You can not move your previous allotted choice code");
+					return false;
+					}
+					else
+					{
+						swapOptions(obj,i,i+1);
+						obj.options[i+1].selected = true;
+					}
+				}
+			}
+		
+		}
+	}
+
+
+// -------------------------------------------------------------------
+// removeSelectedOptions(select_object)
+//  Remove all selected options from a list
+//  (Thanks to Gene Ninestein)
+// -------------------------------------------------------------------
+function removeSelectedOptions(from) { 
+	if (!hasOptions(from)) { return; }
+	if (from.type=="select-one") {
+		from.options[from.selectedIndex] = null;
+		}
+	else {
+		for (var i=(from.options.length-1); i>=0; i--) { 
+			var o=from.options[i]; 
+			if (o.selected) { 
+				from.options[i] = null; 
+				} 
+			}
+		}
+	from.selectedIndex = -1; 
+	} 
+
+// -------------------------------------------------------------------
+// removeAllOptions(select_object)
+//  Remove all options from a list
+// -------------------------------------------------------------------
+function removeAllOptions(from) { 
+	if (!hasOptions(from)) { return; }
+	for (var i=(from.options.length-1); i>=0; i--) { 
+		from.options[i] = null; 
+		} 
+	from.selectedIndex = -1; 
+	} 
+
+// -------------------------------------------------------------------
+// addOption(select_object,display_text,value,selected)
+//  Add an option to a list
+// -------------------------------------------------------------------
+function addOption(obj,text,value,selected) {
+	if (obj!=null && obj.options!=null) {
+		obj.options[obj.options.length] = new Option(text, value, false, selected);
+		}
+	}
+//END HERE
+
+function selectAll()
+{
+	for (var i = 0; i < document.getElementById("SelectList").options.length; i++)
+	{
+		document.getElementById("SelectList").options[i].selected = true;
+	}
+	return true;
+}
+
+$().ready(function() {
+var $scrollingDiv = $("#scrollingDiv");
+
+$(window).scroll(function(){	
+$scrollingDiv
+.stop()	
+});
+});
+/*
+$(document).ready(function() {
+
+$(window).scroll(function(){
+	
+var $scrollingDiv = $("#scrollingDiv");	
+var limit = parseInt(($scrollingDiv.css("marginTop")));
+windowpos=($(this).scrollTop());
+if(	windowpos < 600 ){
+$scrollingDiv
+.stop()
+.animate({"top": ($(window).scrollTop() + -10) + "px"}, "slow" );	
+}
+});
+});
+*/
+function chk_selectCourses(subgrpcount,maingrpcount,othergrpcount,status1count,status2count,status3count,universitycount,districtscount)
+{
+	try
+	{
+		var scount	=	0;
+		var mcount	=	0;
+		var ocount	=	0;
+		var s1count	=	0;
+		var s2count	=	0;
+		var ucount	=	0;
+		var dcount	=	0;
+		for(var i=1;i<=subgrpcount;i++)
+		{
+			if(document.getElementById("subgrp"+i).checked	==	false)
+			{
+				scount++;
+			}
+		}
+		for(var i=1;i<=maingrpcount;i++)
+		{
+			if(document.getElementById("maingrp"+i).checked	==	false)
+			{
+				mcount++;
+			}
+		}
+		for(var i=1;i<=othergrpcount;i++)
+		{
+			if(document.getElementById("othergrp"+i).checked	==	false)
+			{
+				ocount++;
+			}
+		}
+		for(var i=1;i<=status1count;i++)
+		{
+			if(document.getElementById("status1"+i).checked	==	false)
+			{
+				s1count++;
+			}
+		}
+		for(var i=1;i<=status2count;i++)
+		{
+			if(document.getElementById("status2"+i).checked	==	false)
+			{
+				s2count++;
+			}
+		}		
+		for(var i=1;i<=universitycount;i++)
+		{
+			if(document.getElementById("university"+i).checked	==	false)
+			{
+				ucount++;
+			}
+		}
+		for(var i=1;i<=districtscount;i++)
+		{
+			if(document.getElementById("districts"+i).checked	==	false)
+			{
+				dcount++;
+			}
+		}
+		if(subgrpcount	==	scount	&&	maingrpcount	==	mcount	&&	othergrpcount	==	ocount)
+		{
+			
+			alert("Select At Least one Course");
+			return false;
+		}
+		if(status1count	==	s1count)
+		{
+			alert("Select At Least one Institute Type from first row of Advanced Search.");
+			return false;
+		}
+		if(status2count	==	s2count)
+		{
+			alert("Select At Least one Institute Type from Autonomous or Non Autonomous.");
+			return false;
+		}
+		if(!document.getElementById("minority").checked	&&	!document.getElementById("nonminority").checked)
+		{
+			alert("Select At Least one Institute Type, Minority or Non Minority.");
+			return false;
+		}
+		if(universitycount	==	ucount)
+		{
+			alert("Select At Least one University.");
+			return false;
+		}
+		/*if(districtscount	==	dcount)
+		{
+			alert("Select At Least one District.");
+			return false;
+		}*/
+		var agree	=	confirm("Are you sure you want to submit the given information?");
+		if(!agree)
+			return false;
+		
+	}
+	catch (e)
+	{
+		alert(e);
+		return false;
+	}
+}
+function chk_selectInstitutes(max_count)
+{
+	try
+	{
+		var n = $("input:checkbox:checked").length;
+		if(n	==	0)
+		{
+			alert("Please Select At Least one Choicecode.");
+			return false;
+		}
+		if(n	>	max_count)
+		{
+			alert("You Can Only Select Maximum "+max_count+" Choicecodes whereas You have selected "+n+" Choicecodes.");
+			return false;
+		}
+		var agree	=	confirm("Are you sure Choicecodes You have selected are Correct?");
+		if(!agree)
+			return false;
+	}
+	catch (e)
+	{
+		alert(e);
+	}
+}
+function chk_setPreference()
+{
+	try
+	{
+		var agree	=	confirm("Are you sure the Preference of Choicecodes You have Selected is Correct?");
+		if(!agree)
+			return false;
+	}
+	catch (e)
+	{
+		alert(e);
+	}
+}
+function chk_confirmoption()
+{
+	try
+	{
+		var password	=	document.getElementById("password").value;
+		if(password	==	"")
+		{
+			alert("Please Enter the Password.");
+			document.getElementById("password").focus();
+			return false;
+		}
+		var agree	=	confirm("Are you sure You want to Confirm the Option Form?  Before confirmation verify your choicecode(s) and preferences carefully and change, if not satisfied. Press OK, to confirm the Option Form, else Press the Cancel Button.");
+		if(!agree)
+			return false;
+	}
+	catch (e)
+	{
+		alert(e);
+	}
+}
+
+function validate_option_print()
+{
+    try
+    {
+        var candidate_id        =    document.getElementById("candidate_id").value;
+        var cand_id               =   candidate_id.substr(5);
+        if(cand_id=="")
+        {
+            alert("Please Enter Candidate Application Id");
+            document.getElementById("candidate_id").focus();
+            return false;  
+        }
+        if(cand_id.length !=6)
+        {
+            alert("Please Enter Complete Candidate Application Id");
+            document.getElementById("candidate_id").focus();
+            return false;  
+        }
+    }
+    catch (e)
+    {
+        alert(e);
+    }
+}
+function get_NfrChoiceCode(choice,msg,variable)
+{
+	try
+	{
+		if(variable	==	"Y")
+		{
+			var myarr		=	choice.split("/");
+			var choicecode	=	myarr[0];
+			var c			=	choicecode.substring(9);		
+			if(msg	!=	"")
+				alert(msg);	
+		}	
+	}
+	catch (e)
+	{
+		alert(e);
+	}
+}
+function get_zero_cc(choice,msg,variable)
+{
+	//alert(choice);
+	try
+	{
+		if(variable	==	"Y")
+		{
+			var myarr		=	choice.split("/");
+			var vacancy		=	myarr[2];	
+			//alert(vacancy);
+			if(vacancy	==	"0")
+			{
+				//alert(msg);	
+			}
+		}	
+	}
+	catch (e)
+	{
+		alert(e);
+	}
+}
